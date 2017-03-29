@@ -10,10 +10,9 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 var mongoose   = require('mongoose');
 var Place = require('./app/model/Place');
-var argv = require('yargs').argv;
 
-const mongoUri = argv.mongoUri;
-const port = argv.port || 3000;
+const mongoUri = process.env.MONGO_URI;
+const port = process.env.PORT || 3000;
 
 mongoose.connect(mongoUri, mongoOptions).then(
   () => {
