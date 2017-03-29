@@ -42,10 +42,11 @@ router.get(root, (req, res) => {
 router.post(root, (req, res) => {
   var newPlace = new Place();
 
+  newPlace.name = req.body.name;
+
   console.log('request: ' + JSON.stringify(req.body));
   console.log('headers: ' + JSON.stringify(req.headers));
 
-  newPlace.name = req.body.name;
   newPlace.save(err => {
     if (err) {
       console.log(err);
