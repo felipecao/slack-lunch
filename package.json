@@ -1,0 +1,28 @@
+{
+  "name": "slack-lunch",
+  "version": "1.0.0",
+  "description": "Backend service to support a Slack app to solve the eternal problem of figuring out where to have lunch!",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "slack",
+    "lunch",
+    "express",
+    "node"
+  ],
+  "author": "felipecao",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "mongodb": "^2.2.25",
+    "mongoose": "^4.9.2",
+    "yargs": "^7.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
