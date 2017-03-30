@@ -25,6 +25,7 @@ mongoose.connect(mongoUri, mongoOptions).then(
   }
 );
 
+app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json());
 app.use(routerRoot, router);
 
