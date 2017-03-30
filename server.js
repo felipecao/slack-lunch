@@ -43,7 +43,7 @@ router.get(root, (req, res) => {
 router.post(root, (req, res) => {
   var newPlace = new Place();
 
-  newPlace.name = req.body.name;
+  newPlace.name = req.body.text;
 
   console.log('request: ' + JSON.stringify(req.body));
   console.log('headers: ' + JSON.stringify(req.headers));
@@ -55,6 +55,6 @@ router.post(root, (req, res) => {
     }
 
     console.log(newPlace.name + ' saved to database');
-    res.sendStatus(201);
+    res.status(201).send(`@${req.body.user_name} your new place ${newPlace.name} has been added!`);
   });
 });
