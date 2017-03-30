@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const MongoClient = require('mongodb').MongoClient;
 const collectionName = 'places';
 const root = '/';
 const routerRoot = root + collectionName;
@@ -8,7 +7,7 @@ const mongoOptions = {};
 
 var bodyParser = require('body-parser');
 var router = express.Router();
-var mongoose   = require('mongoose');
+var mongoose = require('mongoose');
 var Place = require('./app/model/Place');
 
 const mongoUri = process.env.MONGO_URI;
@@ -28,17 +27,6 @@ mongoose.connect(mongoUri, mongoOptions).then(
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json());
 app.use(routerRoot, router);
-
-router.get(root, (req, res) => {
-  Place.find((err, places) => {
-    if (err) {
-      console.log(err);
-      res.send(err);
-    }
-
-    res.json(places);
-  });
-});
 
 router.post('/add', (req, res) => {
   var newPlace = new Place();
