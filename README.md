@@ -1,5 +1,4 @@
 # slack-lunch
-=============
 > A simple backend to support a Slack command and solve the eternal problem of figuring out where to have lunch
 
 ## What is this project about?
