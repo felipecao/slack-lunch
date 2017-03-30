@@ -40,7 +40,7 @@ router.get(root, (req, res) => {
   });
 });
 
-router.post(root, (req, res) => {
+router.post('/add', (req, res) => {
   var newPlace = new Place();
 
   newPlace.name = req.body.text;
@@ -56,5 +56,16 @@ router.post(root, (req, res) => {
 
     console.log(newPlace.name + ' saved to database');
     res.status(201).send(`@${req.body.user_name} your new place ${newPlace.name} has been added!`);
+  });
+});
+
+router.post('/show', (req, res) => {
+  Place.find((err, places) => {
+    if (err) {
+      console.log(err);
+      res.send(err);
+    }
+
+    res.status(200).send(`@${req.body.user_name} these are the places in our database: ${JSON.stringify(places)}`);
   });
 });
