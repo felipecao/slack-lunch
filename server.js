@@ -35,12 +35,12 @@ function sendResponse(res, text, status = 200) {
   });
 }
 
-function sendError(res, err) {
+function sendError(res, err, userName = "", placeName = "") {
   console.log(err);
 
   if (err.code === 11000) {
     console.log('constraint violation');
-    return res.status(409).send('Place already exists');
+    return res.status(409).send(`@${userName} '${placeName}' already exists`);
   }
 
   return res.status(400).send(err);
@@ -56,7 +56,7 @@ router.post('/add', (req, res) => {
 
   newPlace.save(err => {
     if (err) {
-      return sendError(res, err);
+      return sendError(res, err, req.body.user_name, newPlace.name);
     }
 
     console.log(`'${newPlace.name}' saved to database`);
@@ -82,7 +82,7 @@ router.post('/show', (req, res) => {
       );
     }
 
-    const names = places.map(p => `*${p.name}*`).join(', ');
+    const names = places.map(p => `*${p.name}*`).join('\n');
 
     return sendResponse(res, `@${req.body.user_name} these are the places in our database: ${names}`);
   });
