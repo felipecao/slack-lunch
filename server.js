@@ -8,6 +8,7 @@ const mongoOptions = {};
 var bodyParser = require('body-parser');
 var router = express.Router();
 var mongoose = require('mongoose');
+var random = require('mongoose-random');
 var Place = require('./app/model/Place');
 
 const mongoUri = process.env.MONGO_URI;
@@ -16,6 +17,9 @@ const port = process.env.PORT || 3000;
 mongoose.connect(mongoUri, mongoOptions).then(
   () => {
     app.listen(port, function() {
+      Place.syncRandom(function (err, result) {
+        console.log(result.updated);
+      });
       console.log('listening on port ' + port);
     });
   },
@@ -85,5 +89,14 @@ router.post('/show', (req, res) => {
     const names = places.map(p => `*${p.name}*`).join('\n');
 
     return sendResponse(res, `@${req.body.user_name} these are the places in our database: \n${names}`);
+  });
+});
+
+router.post('/random', (req, res) => {
+  Place.findRandom().limit(1).exec(function (err, places) {
+    if (err) {
+      return sendError(res, err);
+    }
+    return sendResponse(res, `@${req.body.user_name} you should have lunch at *${places[0].name}*`);
   });
 });

@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var random = require('mongoose-random');
 var Schema = mongoose.Schema;
 
 var PlaceSchema = new Schema({
@@ -8,5 +9,7 @@ var PlaceSchema = new Schema({
       unique: true
     }
 });
+
+PlaceSchema.plugin(random, { path: 'r' });
 
 module.exports = mongoose.model('Place', PlaceSchema);
