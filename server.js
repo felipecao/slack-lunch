@@ -54,6 +54,12 @@ router.post('/show', (req, res) => {
       res.send(err);
     }
 
-    res.status(200).send(`@${req.body.user_name} these are the places in our database: ${JSON.stringify(places)}`);
+    if (!places.length) {
+      res.status(200).send({response_type: "in_channel", text: `@${req.body.user_name} there are no places yet! Why don't you try to create the first one by using the \`/add\` command?`});
+    }
+
+    let names = places.map(p => p.name).join(',');
+
+    res.status(200).send({response_type: "in_channel", text: `@${req.body.user_name} these are the places in our database: ${names}`});
   });
 });
