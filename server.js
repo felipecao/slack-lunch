@@ -84,6 +84,6 @@ router.post('/show', (req, res) => {
 
     const names = places.map(p => `*${p.name}*`).join('\n');
 
-    return sendResponse(res, `@${req.body.user_name} these are the places in our database: ${names}`);
+    return sendResponse(res, `@${req.body.user_name} these are the places in our database: \n${names}`);
   });
 });
