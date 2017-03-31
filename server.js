@@ -63,7 +63,7 @@ router.post('/add', (req, res) => {
 
     return sendResponse(
       res,
-      `@${req.body.user_name} your new place ${newPlace.name} has been added!`,
+      `@${req.body.user_name} your new place *${newPlace.name}* has been added!`,
       201
     );
   });
