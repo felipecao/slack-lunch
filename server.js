@@ -30,7 +30,7 @@ app.use(routerRoot, router);
 
 function sendResponse(res, text, status = 200) {
   return res.status(status).send({
-    esponse_type: "in_channel",
+    response_type: "in_channel",
     text: text
   });
 }
@@ -82,7 +82,7 @@ router.post('/show', (req, res) => {
       );
     }
 
-    const names = places.map(p => `*${p.name}*`).join(',');
+    const names = places.map(p => `*${p.name}*`).join(', ');
 
     return sendResponse(res, `@${req.body.user_name} these are the places in our database: ${names}`);
   });
