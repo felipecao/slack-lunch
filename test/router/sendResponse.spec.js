@@ -23,6 +23,7 @@ describe('sendResponse', function() {
 
     sendResponse(responseContract, notificationText);
 
+    assert(statusStub.calledWith(successStatus));
     assert(sendStub.calledWith({
       response_type: "in_channel",
       text: notificationText

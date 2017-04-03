@@ -9,3 +9,5 @@ function sendError(res, err, userName = "", placeName = "") {
 
   return res.status(400).send(err);
 }
+
+module.exports = sendError;
