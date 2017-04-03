@@ -13,7 +13,7 @@ const responseContract = {
 };
 
 describe('sendResponse', function() {
-  it('should send a JSON object over the response ', function() {
+  it("should send an 'in-channel' notification", function() {
     const notificationText = "notification text";
 
     var statusStub = sinon.stub(responseContract, 'status');
