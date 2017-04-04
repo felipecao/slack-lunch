@@ -9,19 +9,7 @@ let error = {};
 const clientErrorStatus = 400;
 const constraintViolationStatus = 409;
 const constraintViolationErrorCode = 11000;
-const responseContract = {
-  status: function(number) {
-
-  },
-  send: function(json) {
-
-  }
-};
-
-const resetStub = (stub, stubObj = {}) => {
-  stub.reset();
-  stub.returns(stubObj);
-};
+const responseContract = Object.assign({}, require('./responseContract'), {})
 
 describe('sendError', function() {
   before(() => {

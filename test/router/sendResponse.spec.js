@@ -3,14 +3,7 @@ var assert = require('assert');
 var sendResponse = require('../../app/router/sendResponse');
 
 const successStatus = 200;
-const responseContract = {
-  status: function(number) {
-
-  },
-  send: function(json) {
-
-  }
-};
+const responseContract = Object.assign({}, require('./responseContract'), {})
 
 describe('sendResponse', function() {
   it("should send an 'in-channel' notification", function() {
