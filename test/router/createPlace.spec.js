@@ -1,3 +1,5 @@
+import {USER_NAME, PLACE_NAME} from '../Constants';
+
 require('sinon-mongoose');
 require('../../app/model/Place');
 
@@ -10,24 +12,21 @@ var res = sinon.stub();
 
 const sendResponseStub = sinon.stub();
 const sendErrorStub = sinon.stub();
-
-const userName = 'felipe';
-const newPlaceName = 'Wallabies Thai';
-const req = {body: {user_name: userName, text: newPlaceName}};
+const req = {body: {user_name: USER_NAME, text: PLACE_NAME}};
 const createPlace = proxyquire('../../app/router/createPlace', {
   './sendResponse': sendResponseStub,
   './sendError': sendErrorStub
 });
 
+function stubSaveCall(callback) {
+  sinon.stub(Place.prototype, 'save', callback);
+}
+
+function restoreSaveStub() {
+  Place.prototype.save.restore();
+}
+
 describe('createPlace', () => {
-
-  function stubSaveCall(callback) {
-    sinon.stub(Place.prototype, 'save', callback);
-  }
-
-  function restoreSaveStub() {
-    Place.prototype.save.restore();
-  }
 
   afterEach(() => {
     sendResponseStub.reset();
@@ -37,7 +36,7 @@ describe('createPlace', () => {
   });
 
   it('should send a response saying the new place has been created', () => {
-    const newPlaceMessage = `@${userName} your new place *${newPlaceName}* has been added!`;
+    const NEW_PLACE_MESSAGE = `@${USER_NAME} your new place *${PLACE_NAME}* has been added!`;
 
     stubSaveCall((callback) => {
       callback(null);
@@ -45,7 +44,7 @@ describe('createPlace', () => {
 
     createPlace(req, res);
 
-    assert(sendResponseStub.calledWith(res, newPlaceMessage, 201));
+    assert(sendResponseStub.calledWith(res, NEW_PLACE_MESSAGE, 201));
     assert(0 == sendErrorStub.callCount);
   });
 
@@ -59,7 +58,7 @@ describe('createPlace', () => {
     createPlace(req, res);
 
     assert(0 == sendResponseStub.callCount);
-    assert(sendErrorStub.calledWith(res, error, userName, newPlaceName));
+    assert(sendErrorStub.calledWith(res, error, USER_NAME, PLACE_NAME));
   });
 
 });

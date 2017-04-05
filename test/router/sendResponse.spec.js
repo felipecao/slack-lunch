@@ -1,25 +1,26 @@
+import emptyResponse from './builder/ResponseBuilder';
+
 var sinon = require('sinon');
 var assert = require('assert');
 var sendResponse = require('../../app/router/sendResponse');
 
-const successStatus = 200;
-const responseContract = Object.assign({}, require('./responseContract'), {})
+const responseContract = Object.assign({}, emptyResponse(), {})
+const statusStub = sinon.stub(responseContract, 'status');
+const sendStub = sinon.stub(responseContract, 'send');
 
 describe('sendResponse', function() {
   it("should send an 'in-channel' notification", function() {
-    const notificationText = "notification text";
+    const NOTIFICATION_TEXT = "notification text";
+    const SUCCESS_STATUS = 200;
 
-    var statusStub = sinon.stub(responseContract, 'status');
-    var sendStub = sinon.stub(responseContract, 'send');
+    statusStub.withArgs(SUCCESS_STATUS).returns(responseContract);
 
-    statusStub.withArgs(successStatus).returns(responseContract);
+    sendResponse(responseContract, NOTIFICATION_TEXT);
 
-    sendResponse(responseContract, notificationText);
-
-    assert(statusStub.calledWith(successStatus));
+    assert(statusStub.calledWith(SUCCESS_STATUS));
     assert(sendStub.calledWith({
       response_type: "in_channel",
-      text: notificationText
+      text: NOTIFICATION_TEXT
     }));
   });
 });

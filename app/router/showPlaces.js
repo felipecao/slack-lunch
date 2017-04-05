@@ -16,8 +16,9 @@ function showPlaces(req, res) {
     }
 
     const names = places.map(p => `*${p.name}*`).join('\n');
+    const message = `@${req.body.user_name} these are the places in our database: \n${names}`;
 
-    return sendResponse(res, `@${req.body.user_name} these are the places in our database: \n${names}`);
+    return sendResponse(res, message);
   });
 }
 
