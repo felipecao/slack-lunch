@@ -8,8 +8,8 @@ var sendError = require('../../app/router/sendError');
 var statusStub;
 var sendStub;
 
-let error = Object.assign({}, defaultError(), {});
-const responseContract = Object.assign({}, emptyResponse(), {});
+let error = defaultError();
+const responseContract = emptyResponse();
 
 describe('sendError', function() {
   before(() => {

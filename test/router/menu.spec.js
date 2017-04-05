@@ -1,11 +1,12 @@
 import {USER_NAME} from '../Constants';
-import validRequestWithUserName from './builder/RequestBuilder';
+import validRequest from './builder/RequestBuilder';
 
 var proxyquire = require('proxyquire').noCallThru();
 var sinon = require('sinon');
 var assert = require('assert');
 
-const req = validRequestWithUserName();
+const req = validRequest();
+const res = sinon.stub();
 const sendResponseStub = sinon.stub();
 const menu = proxyquire('../../app/router/menu', {
   './sendResponse': sendResponseStub
@@ -19,8 +20,6 @@ describe('Menu', function() {
 \`/show\`: shows all places saved to our database
 \`/random\`: picks a random place for you to have lunch
 \`/menu\`: displays this message`
-
-    var res = sinon.stub();
 
     menu(req, res);
 

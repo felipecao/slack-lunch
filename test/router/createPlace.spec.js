@@ -1,4 +1,6 @@
 import {USER_NAME, PLACE_NAME} from '../Constants';
+import defaultError from './builder/ErrorBuilder';
+import validRequest from './builder/RequestBuilder';
 
 require('sinon-mongoose');
 require('../../app/model/Place');
@@ -8,39 +10,31 @@ var sinon = require('sinon');
 var assert = require('assert');
 var mongoose = require('mongoose');
 var Place = mongoose.model('Place');
-var res = sinon.stub();
+var PlaceMock = sinon.mock(Place);
 
+const req = validRequest();
+const res = sinon.stub();
 const sendResponseStub = sinon.stub();
 const sendErrorStub = sinon.stub();
-const req = {body: {user_name: USER_NAME, text: PLACE_NAME}};
 const createPlace = proxyquire('../../app/router/createPlace', {
   './sendResponse': sendResponseStub,
   './sendError': sendErrorStub
 });
-
-function stubSaveCall(callback) {
-  sinon.stub(Place.prototype, 'save', callback);
-}
-
-function restoreSaveStub() {
-  Place.prototype.save.restore();
-}
 
 describe('createPlace', () => {
 
   afterEach(() => {
     sendResponseStub.reset();
     sendErrorStub.reset();
-
-    restoreSaveStub();
   });
 
   it('should send a response saying the new place has been created', () => {
     const NEW_PLACE_MESSAGE = `@${USER_NAME} your new place *${PLACE_NAME}* has been added!`;
 
-    stubSaveCall((callback) => {
-      callback(null);
-    });
+    PlaceMock
+      .expects('create')
+      .withArgs({ name: PLACE_NAME })
+      .yields(null, {id: 123, name: PLACE_NAME});
 
     createPlace(req, res);
 
@@ -49,16 +43,16 @@ describe('createPlace', () => {
   });
 
   it("should send an error response in case there's an error", () => {
-    var error = {code: 123};
 
-    stubSaveCall((callback) => {
-      callback(error);
-    });
+    PlaceMock
+      .expects('create')
+      .withArgs({ name: PLACE_NAME })
+      .yields(defaultError(), null);
 
     createPlace(req, res);
 
     assert(0 == sendResponseStub.callCount);
-    assert(sendErrorStub.calledWith(res, error, USER_NAME, PLACE_NAME));
+    assert(sendErrorStub.calledWith(res, defaultError(), USER_NAME, PLACE_NAME));
   });
 
 });

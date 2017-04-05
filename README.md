@@ -12,15 +12,16 @@ This project is an HTTP API implemented using [Express](https://expressjs.com/) 
 ## Running locally
 After checking out the code, the first thing you need to do is run `npm install`. This will download all the dependencies.
 
-Next, the simplest way of running this project locally is using `node server` (don't forget to set the previously mentioned environment variables). This will start the app on port 3000 (usually) and from there on you can start `POST`ing to the API. E.g.: `curl -X POST -H "Content-Type: application/json" -d '{"user_name": "felipecao"}' "http://localhost:3000/places/show/"`.
+Next, the simplest way of running this project locally is using `npm run start` (don't forget to set the previously mentioned environment variables). This will start the app on port 3000 (usually) and from there on you can start `POST`ing to the API. E.g.: `curl -X POST -H "Content-Type: application/json" -d '{"user_name": "felipecao"}' "http://localhost:3000/places/show/"`.
 
-But `node server` has a downside: every time you make a change, you'll need to restart the app.
+But `npm run start` has a downside: every time you make a change, you'll need to restart the app.
 
 To get rid of this hassle, use `npm run dev`. Now every time you change a file, [nodemon](https://nodemon.io/) will take care of recompiling and reloading the app.
 
 ## TODO list
-* Add unit tests
-* Respond to Slack using JSON
-* Make responses visible to the entire channel
+* Add integration tests (?)
 * Add information about teams to data model
 * Check token id vs team provided on request
+* Refactor routers
+* Add support to addresses on /add
+* Add support to URL's on /add

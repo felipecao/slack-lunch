@@ -4,7 +4,8 @@
   "description": "Backend service to support a Slack app to solve the eternal problem of figuring out where to have lunch!",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "start": "babel-node server.js",
+    "dev": "nodemon server.js --exec babel-node",
     "test": "./node_modules/.bin/mocha --recursive --compilers js:babel-core/register",
     "tdd": "./node_modules/.bin/mocha --recursive --compilers js:babel-core/register -w"
   },

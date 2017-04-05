@@ -4,7 +4,7 @@ var sinon = require('sinon');
 var assert = require('assert');
 var sendResponse = require('../../app/router/sendResponse');
 
-const responseContract = Object.assign({}, emptyResponse(), {})
+const responseContract = emptyResponse();
 const statusStub = sinon.stub(responseContract, 'status');
 const sendStub = sinon.stub(responseContract, 'send');
 

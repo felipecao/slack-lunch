@@ -1,11 +1,10 @@
 import {USER_NAME, PLACE_NAME} from '../Constants';
-import validRequestWithUserName from './builder/RequestBuilder';
+import validRequest from './builder/RequestBuilder';
 import defaultError from './builder/ErrorBuilder';
 
 require('sinon-mongoose');
 require('../../app/model/Place');
 
-var res;
 var proxyquire = require('proxyquire').noCallThru();
 var sinon = require('sinon');
 var assert = require('assert');
@@ -13,7 +12,8 @@ var mongoose = require('mongoose');
 var Place = mongoose.model('Place');
 var PlaceMock = sinon.mock(Place);
 
-const req = validRequestWithUserName();
+const req = validRequest();
+const res = sinon.stub();
 const sendResponseStub = sinon.stub();
 const sendErrorStub = sinon.stub();
 const pickRandomPlace = proxyquire('../../app/router/pickRandomPlace', {
@@ -22,10 +22,6 @@ const pickRandomPlace = proxyquire('../../app/router/pickRandomPlace', {
 });
 
 describe('pickRandomPlace', () => {
-
-  beforeEach(() => {
-    res = sinon.stub();
-  });
 
   afterEach(() => {
     sendResponseStub.reset();
