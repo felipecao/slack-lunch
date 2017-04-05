@@ -4,20 +4,20 @@ const express = require('express');
 const app = express();
 
 var bodyParser = require('body-parser');
-var menuController = require('./app/controller/menuController');
-var pickRandomController = require('./app/controller/pickRandomController');
-var showPlacesController = require('./app/controller/showPlacesController');
-var createPlaceController = require('./app/controller/createPlaceController');
+var menuRoute = require('./app/route/menuRoute');
+var pickRandomRoute = require('./app/route/pickRandomRoute');
+var showPlacesRoute = require('./app/route/showPlacesRoute');
+var createPlaceRoute = require('./app/route/createPlaceRoute');
 
 connectToMongo(app);
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json());
 app.use('/places', [
-  menuController,
-  pickRandomController,
-  showPlacesController,
-  createPlaceController
+  menuRoute,
+  pickRandomRoute,
+  showPlacesRoute,
+  createPlaceRoute
 ]);
 
 module.exports = app;
