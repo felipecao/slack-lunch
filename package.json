@@ -18,6 +18,7 @@
   "author": "felipecao",
   "license": "ISC",
   "dependencies": {
+    "babel-cli": "^6.24.0",
     "body-parser": "^1.17.1",
     "ejs": "^2.5.6",
     "express": "^4.15.2",
