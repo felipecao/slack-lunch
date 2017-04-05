@@ -8,7 +8,7 @@ var assert = require('assert');
 const req = validRequest();
 const res = sinon.stub();
 const sendResponseStub = sinon.stub();
-const menu = proxyquire('../../app/router/menu', {
+const menu = proxyquire('../../app/service/menu', {
   './sendResponse': sendResponseStub
 });
 

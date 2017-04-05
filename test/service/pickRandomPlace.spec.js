@@ -16,7 +16,7 @@ const req = validRequest();
 const res = sinon.stub();
 const sendResponseStub = sinon.stub();
 const sendErrorStub = sinon.stub();
-const pickRandomPlace = proxyquire('../../app/router/pickRandomPlace', {
+const pickRandomPlace = proxyquire('../../app/service/pickRandomPlace', {
   './sendResponse': sendResponseStub,
   './sendError': sendErrorStub
 });

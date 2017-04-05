@@ -2,7 +2,7 @@ import emptyResponse from './builder/ResponseBuilder';
 
 var sinon = require('sinon');
 var assert = require('assert');
-var sendResponse = require('../../app/router/sendResponse');
+var sendResponse = require('../../app/service/sendResponse');
 
 const responseContract = emptyResponse();
 const statusStub = sinon.stub(responseContract, 'status');

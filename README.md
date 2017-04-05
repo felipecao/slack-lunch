@@ -22,6 +22,5 @@ To get rid of this hassle, use `npm run dev`. Now every time you change a file, 
 * Add integration tests (?)
 * Add information about teams to data model
 * Check token id vs team provided on request
-* Refactor routers
 * Add support to addresses on /add
 * Add support to URL's on /add

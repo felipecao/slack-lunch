@@ -16,7 +16,7 @@ const req = validRequest();
 const res = sinon.stub();
 const sendResponseStub = sinon.stub();
 const sendErrorStub = sinon.stub();
-const createPlace = proxyquire('../../app/router/createPlace', {
+const createPlace = proxyquire('../../app/service/createPlace', {
   './sendResponse': sendResponseStub,
   './sendError': sendErrorStub
 });

@@ -4,7 +4,7 @@ import defaultError from './builder/ErrorBuilder';
 
 var sinon = require('sinon');
 var assert = require('assert');
-var sendError = require('../../app/router/sendError');
+var sendError = require('../../app/service/sendError');
 var statusStub;
 var sendStub;
 
