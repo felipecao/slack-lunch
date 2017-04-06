@@ -2,8 +2,6 @@ import {USER_NAME} from '../Constants';
 import validRequest from './builder/RequestBuilder';
 
 var proxyquire = require('proxyquire').noCallThru();
-var sinon = require('sinon');
-var assert = require('assert');
 
 const req = validRequest();
 const res = sinon.stub();
@@ -23,6 +21,6 @@ describe('Menu', function() {
 
     menu(req, res);
 
-    assert(sendResponseStub.calledWith(res, MENU_MESSAGE));
+    expect(sendResponseStub).to.have.been.calledWith(res, MENU_MESSAGE);
   });
 });

@@ -6,8 +6,6 @@ require('sinon-mongoose');
 require('../../app/model/Place');
 
 var proxyquire = require('proxyquire').noCallThru();
-var sinon = require('sinon');
-var assert = require('assert');
 var mongoose = require('mongoose');
 
 const req = validRequest();
@@ -39,8 +37,8 @@ describe('showPlaces', function () {
 
     showPlaces(req, res);
 
-    assert(sendResponseStub.calledWith(res, NO_PLACES_MESSAGE));
-    assert(0 == sendErrorStub.callCount);
+    expect(sendResponseStub).to.have.been.calledWith(res, NO_PLACES_MESSAGE);
+    sendErrorStub.callCount.should.equal(0);
   });
 
   it('should suggest adding a place if there are no saved places', () => {
@@ -55,8 +53,8 @@ describe('showPlaces', function () {
 
     showPlaces(req, res);
 
-    assert(sendResponseStub.calledWith(res, ALL_PLACES_MESSAGE));
-    assert(0 == sendErrorStub.callCount);
+    expect(sendResponseStub).to.have.been.calledWith(res, ALL_PLACES_MESSAGE);
+    sendErrorStub.callCount.should.equal(0);
   });
 
   it('should send an error in case mongoose-returns an error', () => {
@@ -68,8 +66,8 @@ describe('showPlaces', function () {
 
     showPlaces(req, res);
 
-    assert(sendErrorStub.calledWith(res, defaultError()));
-    assert(0 == sendResponseStub.callCount);
+    expect(sendErrorStub).to.have.been.calledWith(res, defaultError());
+    sendResponseStub.callCount.should.equal(0);
   });
 
 });

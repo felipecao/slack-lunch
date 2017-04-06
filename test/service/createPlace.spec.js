@@ -6,8 +6,6 @@ require('sinon-mongoose');
 require('../../app/model/Place');
 
 var proxyquire = require('proxyquire').noCallThru();
-var sinon = require('sinon');
-var assert = require('assert');
 var mongoose = require('mongoose');
 var Place = mongoose.model('Place');
 var PlaceMock = sinon.mock(Place);
@@ -38,8 +36,8 @@ describe('createPlace', () => {
 
     createPlace(req, res);
 
-    assert(sendResponseStub.calledWith(res, NEW_PLACE_MESSAGE, 201));
-    assert(0 == sendErrorStub.callCount);
+    expect(sendResponseStub).to.have.been.calledWith(res, NEW_PLACE_MESSAGE, 201);
+    sendErrorStub.callCount.should.equal(0);
   });
 
   it("should send an error response in case there's an error", () => {
@@ -51,8 +49,8 @@ describe('createPlace', () => {
 
     createPlace(req, res);
 
-    assert(0 == sendResponseStub.callCount);
-    assert(sendErrorStub.calledWith(res, defaultError(), USER_NAME, PLACE_NAME));
+    sendResponseStub.callCount.should.equal(0);
+    expect(sendErrorStub).to.have.been.calledWith(res, defaultError(), USER_NAME, PLACE_NAME);
   });
 
 });

@@ -1,5 +1,4 @@
 var fetchTeamsAndTokens = require('../../app/service/fetchTeamsAndTokens');
-var assert = require('assert');
 
 describe('fetchTeamsAndTokens', () => {
 
@@ -15,9 +14,10 @@ describe('fetchTeamsAndTokens', () => {
 
     var teamsAndTokens = fetchTeamsAndTokens();
 
-    assert(2 == Object.keys(teamsAndTokens).length);
-    assert.equal("cRUArd3nd0", teamsAndTokens["ToC0"]);
-    assert.equal("BaRR1g4", teamsAndTokens["S3nh0R"]);
+    Object.keys(teamsAndTokens).length.should.equal(2);
+    teamsAndTokens.should.have.keys("ToC0", "S3nh0R");
+    teamsAndTokens["ToC0"].should.equal("cRUArd3nd0");
+    teamsAndTokens["S3nh0R"].should.equal("BaRR1g4");
   });
 
 });

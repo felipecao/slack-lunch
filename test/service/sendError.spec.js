@@ -2,8 +2,6 @@ import {USER_NAME, PLACE_NAME} from '../Constants';
 import emptyResponse from './builder/ResponseBuilder';
 import defaultError from './builder/ErrorBuilder';
 
-var sinon = require('sinon');
-var assert = require('assert');
 var sendError = require('../../app/service/sendError');
 var statusStub;
 var sendStub;
@@ -30,8 +28,8 @@ describe('sendError', function() {
 
     sendError(responseContract, error, USER_NAME, PLACE_NAME);
 
-    assert(statusStub.calledWith(CONSTRAINT_VIOLATION_STATUS));
-    assert(sendStub.calledWith(`@${USER_NAME} '${PLACE_NAME}' already exists`));
+    expect(statusStub).to.have.been.calledWith(CONSTRAINT_VIOLATION_STATUS);
+    expect(sendStub).to.have.been.calledWith(`@${USER_NAME} '${PLACE_NAME}' already exists`);
   });
 
   it("should issue a 400 error for a non-constraint violation error", function() {
@@ -41,7 +39,7 @@ describe('sendError', function() {
 
     sendError(responseContract, error);
 
-    assert(statusStub.calledWith(CLIENT_ERROR_STATUS));
-    assert(sendStub.calledWith(error));
+    expect(statusStub).to.have.been.calledWith(CLIENT_ERROR_STATUS);
+    expect(sendStub).to.have.been.calledWith(error);
   });
 });

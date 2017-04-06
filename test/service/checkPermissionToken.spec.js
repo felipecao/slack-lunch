@@ -1,8 +1,6 @@
 import validRequest from './builder/RequestBuilder';
 
 var proxyquire = require('proxyquire').noCallThru();
-var sinon = require('sinon');
-var assert = require('assert');
 var req = null;
 
 const res = sinon.stub();
@@ -20,7 +18,7 @@ describe('checkPermissionToken', function() {
   it('return false if the request contains no token', () => {
     fetchTeamsAndTokensStub.returns({});
 
-    assert.equal(false, isPermissionTokenValid(req, res));
+    isPermissionTokenValid(req, res).should.be.false;
   });
 
   it('return false if the request a token but token store is empty', () => {
@@ -28,13 +26,13 @@ describe('checkPermissionToken', function() {
 
     fetchTeamsAndTokensStub.returns({});
 
-    assert.equal(false, isPermissionTokenValid(req, res));
+    isPermissionTokenValid(req, res).should.be.false;
   });
 
   it('return false if the request has no token although token store is not empty', () => {
     fetchTeamsAndTokensStub.returns({TEAM_ID:"token"});
 
-    assert.equal(false, isPermissionTokenValid(req, res));
+    isPermissionTokenValid(req, res).should.be.false;
   });
 
   it('return false if the request token does not match the expected token', () => {
@@ -43,7 +41,7 @@ describe('checkPermissionToken', function() {
 
     fetchTeamsAndTokensStub.returns({TEAM_ID:"token"});
 
-    assert.equal(false, isPermissionTokenValid(req, res));
+    isPermissionTokenValid(req, res).should.be.false;
   });
 
   it('return false if the request team_id does not match the expected team_id', () => {
@@ -52,7 +50,7 @@ describe('checkPermissionToken', function() {
 
     fetchTeamsAndTokensStub.returns({TEAM_ID:"token"});
 
-    assert.equal(false, isPermissionTokenValid(req, res));
+    isPermissionTokenValid(req, res).should.be.false;
   });
 
   it('return true if the request token and team_id match the expected token and team_id', () => {
@@ -61,6 +59,6 @@ describe('checkPermissionToken', function() {
 
     fetchTeamsAndTokensStub.returns({TEAM_ID:"token"});
 
-    assert.equal(true, isPermissionTokenValid(req, res));
+    isPermissionTokenValid(req, res).should.be.true;
   });
 });

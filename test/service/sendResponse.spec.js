@@ -1,7 +1,5 @@
 import emptyResponse from './builder/ResponseBuilder';
 
-var sinon = require('sinon');
-var assert = require('assert');
 var sendResponse = require('../../app/service/sendResponse');
 
 const responseContract = emptyResponse();
@@ -17,10 +15,10 @@ describe('sendResponse', function() {
 
     sendResponse(responseContract, NOTIFICATION_TEXT);
 
-    assert(statusStub.calledWith(SUCCESS_STATUS));
-    assert(sendStub.calledWith({
+    expect(statusStub).to.have.been.calledWith(SUCCESS_STATUS);
+    expect(sendStub).to.have.been.calledWith({
       response_type: "in_channel",
       text: NOTIFICATION_TEXT
-    }));
+    });
   });
 });
