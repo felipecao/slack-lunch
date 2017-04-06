@@ -1,4 +1,4 @@
-import {USER_NAME, PLACE_NAME} from '../Constants';
+import {USER_NAME, PLACE_NAME, TEAM_ID} from '../Constants';
 import validRequest from './builder/RequestBuilder';
 import defaultError from './builder/ErrorBuilder';
 
@@ -32,7 +32,7 @@ describe('pickRandomPlace', () => {
     const NO_PLACES_MESSAGE = `@${USER_NAME} there are no places yet! Why don't you try to create the first one by using the \`/add\` command?`;
 
     PlaceMock
-      .expects('findRandom')
+      .expects('findRandom').withArgs({teamId: TEAM_ID})
       .chain('limit', 1)
       .chain('exec')
       .yields(null, []);
@@ -47,7 +47,7 @@ describe('pickRandomPlace', () => {
     const RANDOM_PLACE_MESSAGE = `@${USER_NAME} you should have lunch at *${PLACE_NAME}*`;
 
     PlaceMock
-      .expects('findRandom')
+      .expects('findRandom').withArgs({teamId: TEAM_ID})
       .chain('limit', 1)
       .chain('exec')
       .yields(null, [{name: PLACE_NAME}]);
@@ -60,7 +60,7 @@ describe('pickRandomPlace', () => {
 
   it('should invoke sendError in the case of an error', () => {
     PlaceMock
-      .expects('findRandom')
+      .expects('findRandom').withArgs({teamId: TEAM_ID})
       .chain('limit', 1)
       .chain('exec')
       .yields(defaultError(), []);

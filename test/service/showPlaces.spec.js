@@ -1,4 +1,4 @@
-import {USER_NAME, PLACE_NAME} from '../Constants';
+import {USER_NAME, PLACE_NAME, TEAM_ID} from '../Constants';
 import validRequest from './builder/RequestBuilder';
 import defaultError from './builder/ErrorBuilder';
 
@@ -33,7 +33,8 @@ describe('showPlaces', function () {
     const NO_PLACES_MESSAGE = `@${USER_NAME} there are no places yet! Why don't you try to create the first one by using the \`/add\` command?`;
 
     PlaceMock
-      .expects('find')
+      .expects('where').withArgs('teamId', TEAM_ID)
+      .chain('find')
       .yields(null, []);
 
     showPlaces(req, res);
@@ -48,7 +49,8 @@ describe('showPlaces', function () {
     const ALL_PLACES_MESSAGE = `@${USER_NAME} these are the places in our database: \n${PLACES_WITH_NAMES.map(p => `*${p.name}*`).join('\n')}`;
 
     PlaceMock
-      .expects('find')
+      .expects('where').withArgs('teamId', TEAM_ID)
+      .chain('find')
       .yields(null, PLACES_WITH_NAMES);
 
     showPlaces(req, res);
@@ -60,7 +62,8 @@ describe('showPlaces', function () {
   it('should send an error in case mongoose-returns an error', () => {
 
     PlaceMock
-      .expects('find')
+      .expects('where').withArgs('teamId', TEAM_ID)
+      .chain('find')
       .yields(defaultError(), []);
 
     showPlaces(req, res);

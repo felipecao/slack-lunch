@@ -1,4 +1,4 @@
-import {USER_NAME, PLACE_NAME} from '../Constants';
+import {USER_NAME, PLACE_NAME, TEAM_ID} from '../Constants';
 import defaultError from './builder/ErrorBuilder';
 import validRequest from './builder/RequestBuilder';
 
@@ -33,8 +33,8 @@ describe('createPlace', () => {
 
     PlaceMock
       .expects('create')
-      .withArgs({ name: PLACE_NAME })
-      .yields(null, {id: 123, name: PLACE_NAME});
+      .withArgs({ name: PLACE_NAME, teamId: TEAM_ID })
+      .yields(null, {id: 123, name: PLACE_NAME, teamId: TEAM_ID});
 
     createPlace(req, res);
 
@@ -46,7 +46,7 @@ describe('createPlace', () => {
 
     PlaceMock
       .expects('create')
-      .withArgs({ name: PLACE_NAME })
+      .withArgs({ name: PLACE_NAME, teamId: TEAM_ID })
       .yields(defaultError(), null);
 
     createPlace(req, res);

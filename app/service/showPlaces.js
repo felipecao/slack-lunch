@@ -3,7 +3,7 @@ var sendError = require('./sendError');
 var Place = require('../model/Place');
 
 function showPlaces(req, res) {
-  Place.find((err, places) => {
+  Place.where('teamId', req.body.team_id).find((err, places) => {
     if (err) {
       return sendError(res, err);
     }

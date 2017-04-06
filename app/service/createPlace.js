@@ -3,7 +3,7 @@ var sendError = require('./sendError');
 var Place = require('../model/Place');
 
 function createPlace(req, res) {
-  Place.create({ name: req.body.text }, (err, newPlace) => {
+  Place.create({ name: req.body.text, teamId: req.body.team_id }, (err, newPlace) => {
     if (err) {
       return sendError(res, err, req.body.user_name, req.body.text);
     }

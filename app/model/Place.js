@@ -7,6 +7,10 @@ var PlaceSchema = new Schema({
       type: String,
       required: true,
       unique: true
+    },
+    teamId: {
+      type: String,
+      required: true
     }
 });
 
