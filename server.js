@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 
 var bodyParser = require('body-parser');
+var checkPermissionTokenRoute = require('./app/route/checkPermissionTokenRoute');
 var menuRoute = require('./app/route/menuRoute');
 var pickRandomRoute = require('./app/route/pickRandomRoute');
 var showPlacesRoute = require('./app/route/showPlacesRoute');
@@ -13,6 +14,7 @@ connectToMongo(app);
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json());
+app.use('/**/*', checkPermissionTokenRoute);
 app.use('/places', [
   menuRoute,
   pickRandomRoute,

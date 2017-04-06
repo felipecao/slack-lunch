@@ -19,8 +19,6 @@ But `npm run start` has a downside: every time you make a change, you'll need to
 To get rid of this hassle, use `npm run dev`. Now every time you change a file, [nodemon](https://nodemon.io/) will take care of recompiling and reloading the app.
 
 ## TODO list
-* Add integration tests (?)
 * Add information about teams to data model
-* Check token id vs team provided on request
 * Add support to addresses on /add
 * Add support to URL's on /add
