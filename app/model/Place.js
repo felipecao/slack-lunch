@@ -14,10 +14,7 @@ var PlaceSchema = new Schema({
       type: String,
       required: true
     },
-    url: {
-      type: mongoose.SchemaTypes.Url,
-      unique: true
-    }
+    url: mongoose.SchemaTypes.Url
 });
 
 PlaceSchema.plugin(random, { path: 'r' });

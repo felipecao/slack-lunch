@@ -29,7 +29,7 @@ describe('sendError', function() {
     sendError(responseContract, error, USER_NAME, PLACE_NAME);
 
     expect(statusStub).to.have.been.calledWith(CONSTRAINT_VIOLATION_STATUS);
-    expect(sendStub).to.have.been.calledWith(`@${USER_NAME} '${PLACE_NAME}' already exists`);
+    expect(sendStub).to.have.been.calledWith(`@${USER_NAME} '${PLACE_NAME}' could not saved. Please ask someone to have a look at the error log.`);
   });
 
   it("should issue a 400 error for a non-constraint violation error", function() {
