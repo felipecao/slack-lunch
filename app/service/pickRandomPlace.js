@@ -1,4 +1,5 @@
 var sendResponse = require('./sendResponse');
+var sendResponseWithPlace = require('./sendResponseWithPlace');
 var sendError = require('./sendError');
 var Place = require('../model/Place');
 
@@ -15,7 +16,7 @@ function pickRandomPlace(req, res) {
       );
     }
 
-    return sendResponse(res, `@${req.body.user_name} you should have lunch at *${places[0].name}*`);
+    return sendResponseWithPlace(res, `@${req.body.user_name} you should have lunch at *${places[0].name}*`, places[0]);
   });
 }
 

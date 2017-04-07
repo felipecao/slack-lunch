@@ -13,10 +13,12 @@ var PlaceMock = sinon.mock(Place);
 const req = validRequest();
 const res = sinon.stub();
 const sendResponseStub = sinon.stub();
+const sendResponseWithPlaceStub = sinon.stub();
 const sendErrorStub = sinon.stub();
 const pickRandomPlace = proxyquire('../../app/service/pickRandomPlace', {
   './sendResponse': sendResponseStub,
-  './sendError': sendErrorStub
+  './sendError': sendErrorStub,
+  './sendResponseWithPlace': sendResponseWithPlaceStub
 });
 
 describe('pickRandomPlace', () => {
@@ -43,16 +45,17 @@ describe('pickRandomPlace', () => {
 
   it('should suggest the place returned in findRandom', () => {
     const RANDOM_PLACE_MESSAGE = `@${USER_NAME} you should have lunch at *${PLACE_NAME}*`;
+    const PLACE = {name: PLACE_NAME};
 
     PlaceMock
       .expects('findRandom').withArgs({teamId: TEAM_ID})
       .chain('limit', 1)
       .chain('exec')
-      .yields(null, [{name: PLACE_NAME}]);
+      .yields(null, [PLACE]);
 
     pickRandomPlace(req, res);
 
-    expect(sendResponseStub).to.have.been.calledWith(res, RANDOM_PLACE_MESSAGE);
+    expect(sendResponseWithPlaceStub).to.have.been.calledWith(res, RANDOM_PLACE_MESSAGE, PLACE);
     sendErrorStub.callCount.should.equal(0);
   });
 
