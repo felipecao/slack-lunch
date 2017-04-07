@@ -17,7 +17,3 @@ Next, the simplest way of running this project locally is using `npm run start` 
 But `npm run start` has a downside: every time you make a change, you'll need to restart the app.
 
 To get rid of this hassle, use `npm run dev`. Now every time you change a file, [nodemon](https://nodemon.io/) will take care of recompiling and reloading the app.
-
-## TODO list
-* Add support to addresses on /add
-* Add support to URL's on /add

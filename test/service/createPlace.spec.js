@@ -31,7 +31,7 @@ describe('createPlace', () => {
 
     PlaceMock
       .expects('create')
-      .withArgs({ name: PLACE_NAME, teamId: TEAM_ID })
+      .withArgs({ name: PLACE_NAME, teamId: TEAM_ID, url: undefined })
       .yields(null, {id: 123, name: PLACE_NAME, teamId: TEAM_ID});
 
     createPlace(req, res);
@@ -44,7 +44,7 @@ describe('createPlace', () => {
 
     PlaceMock
       .expects('create')
-      .withArgs({ name: PLACE_NAME, teamId: TEAM_ID })
+      .withArgs({ name: PLACE_NAME, teamId: TEAM_ID, url: undefined })
       .yields(defaultError(), null);
 
     createPlace(req, res);

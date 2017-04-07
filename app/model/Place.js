@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 var random = require('mongoose-random');
 var Schema = mongoose.Schema;
 
+require('mongoose-type-url');
+
 var PlaceSchema = new Schema({
     name: {
       type: String,
@@ -11,6 +13,10 @@ var PlaceSchema = new Schema({
     teamId: {
       type: String,
       required: true
+    },
+    url: {
+      type: mongoose.SchemaTypes.Url,
+      unique: true
     }
 });
 
